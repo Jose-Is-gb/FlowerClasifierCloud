@@ -1,7 +1,7 @@
 import os
 import numpy as np
 import tensorflow as tf
-import tensorflow_datasets as tfds
+#import tensorflow_datasets as tfds#
 from tensorflow.keras.applications.mobilenet_v2 import preprocess_input
 from tensorflow.keras.preprocessing.image import load_img, img_to_array
 from flask import Flask, render_template
@@ -31,27 +31,27 @@ os.makedirs(SAMPLES_DIR, exist_ok=True)
 # -----------------------------
 # DESCARGAR DATASET DE VALIDACIÓN
 # -----------------------------
-print("Descargando Oxford Flowers 102...")
+#print("Descargando Oxford Flowers 102...")
 
-(ds_train, ds_val), ds_info = tfds.load(
-    "oxford_flowers102",
-    split=["train", "validation"],
-    as_supervised=True,
-    with_info=True
-)
+#(ds_train, ds_val), ds_info = tfds.load(
+ #   "oxford_flowers102",
+  #  split=["train", "validation"],
+   # as_supervised=True,
+    #with_info=True
+#)
 
 # -----------------------------
 # GUARDAR 50 IMÁGENES CON NOMBRES CORRECTOS
 # -----------------------------
-if len(os.listdir(SAMPLES_DIR)) == 0:
-    print("Guardando 50 imágenes con su etiqueta real...")
-    count = 0
-    for img, label in ds_val.take(50):
-        real_class = int(label.numpy())  # clase correcta 0–101
-        path = f"{SAMPLES_DIR}/{count}_{real_class}.jpg"
-        tf.keras.preprocessing.image.save_img(path, img.numpy())
-        count += 1
-    print("Imágenes guardadas correctamente.")
+#if len(os.listdir(SAMPLES_DIR)) == 0:
+#    print("Guardando 50 imágenes con su etiqueta real...")
+#    count = 0
+#    for img, label in ds_val.take(50):
+#       real_class = int(label.numpy())  # clase correcta 0–101
+#        path = f"{SAMPLES_DIR}/{count}_{real_class}.jpg"
+#       tf.keras.preprocessing.image.save_img(path, img.numpy())
+#        count += 1
+#    print("Imágenes guardadas correctamente.")
 
 
 # -----------------------------
@@ -121,4 +121,5 @@ def index():
 # EJECUTAR SERVIDOR
 # -----------------------------
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
