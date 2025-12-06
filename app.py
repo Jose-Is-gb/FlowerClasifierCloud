@@ -21,6 +21,21 @@ IMG_SIZE = 224
 interpreter = Interpreter(model_path=MODEL_PATH)
 interpreter.allocate_tensors()
 
+
+# -----------------------------
+# EXTRAER LABEL REAL DEL NOMBRE
+# archivo ejemplo → "12_54.jpg"
+# -----------------------------
+def obtener_label_real_desde_nombre(filename):
+    if "_" not in filename:
+        return "desconocido" 
+
+    try:
+        etiqueta = int(filename.split("_")[1].split(".")[0])
+        return CLASS_NAMES[etiqueta]
+    except:
+        return "desconocido"
+
 # Obtener los tensores de entrada y salida para la inferencia
 input_details = interpreter.get_input_details()
 output_details = interpreter.get_output_details()
