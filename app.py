@@ -22,7 +22,7 @@ interpreter = Interpreter(model_path=MODEL_PATH)
 interpreter.allocate_tensors()
 
 
-# -----------------------------
+print("Iniciando aplicación Flask.")
 # EXTRAER LABEL REAL DEL NOMBRE
 # archivo ejemplo → "12_54.jpg"
 # -----------------------------
